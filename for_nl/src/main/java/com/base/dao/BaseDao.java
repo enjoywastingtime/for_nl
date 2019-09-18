@@ -20,10 +20,14 @@ public interface BaseDao<T extends BaseEntity, ID extends Serializable> extends 
 
 	Page<Map<String, Object>> findPageBySql(Pageable pageable, String sql, Object[] objects);
 
-	public List<T> findListEntityBySql(String sql, Object[] objects);
+	public List<T> findListEntityBySql(String sql, Object[] objects, Class<T> clazz);
 
-	public T findOneEntityBySql(String sql, Object[] objects);
+	public T findOneEntityBySql(String sql, Object[] objects, Class<T> clazz);
 
-	Page<T> findPageEntityBySql(Pageable pageable, String sql, Object[] objects);
+	Page<T> findPageEntityBySql(Pageable pageable, String sql, Object[] objects, Class<T> clazz);
+
+	public int getCountBySQL(String queryString);
+
+	public int executeUpdateBySQL(String queryString);
 
 }
