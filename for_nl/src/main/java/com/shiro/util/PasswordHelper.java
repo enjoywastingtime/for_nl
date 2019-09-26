@@ -13,10 +13,10 @@ public class PasswordHelper {
 	private RandomNumberGenerator randomOb = new SecureRandomNumberGenerator();
 
 	// 散列算法名（md5方式）
-	private static final String ALGORITHM_NAME = "md5";
+	public static final String ALGORITHM_NAME = "md5";
 
 	// 散列迭代次数
-	private static final int HASH_ITERATION = 2;
+	public static final int HASH_ITERATION = 2;
 
 	/**
 	 * 加密用户

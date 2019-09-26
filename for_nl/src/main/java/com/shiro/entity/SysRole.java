@@ -9,10 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.base.entity.BaseEntity;
 
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames="roleName"))
 public class SysRole extends BaseEntity {
 
 	private static final long serialVersionUID = 257876793839614844L;

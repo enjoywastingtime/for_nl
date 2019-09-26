@@ -10,12 +10,15 @@ import com.shiro.entity.SysUser;
 
 @Service
 public class SysUserService extends BaseServiceImpl<SysUser, String> {
-	@SuppressWarnings("unused")
 	private SysUserDao sysUserDao;
 
 	@Resource
 	public void setBaseDao(SysUserDao sysUserDao) {
 		this.sysUserDao = sysUserDao;
 		super.setBaseDao(sysUserDao);
+	}
+	
+	public SysUser findByUsername(String userName){
+		return sysUserDao.findByUsername(userName);
 	}
 }

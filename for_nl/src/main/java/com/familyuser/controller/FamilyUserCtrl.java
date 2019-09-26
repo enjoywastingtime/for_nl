@@ -11,7 +11,7 @@ import com.familyuser.entity.FamilyUser;
 import com.familyuser.service.FamilyUserService;
 
 @RestController
-@RequestMapping("familyUser")
+@RequestMapping("/web/familyUser")
 public class FamilyUserCtrl extends BaseCtrl{
 	@Autowired
 	private FamilyUserService familyUserService;
