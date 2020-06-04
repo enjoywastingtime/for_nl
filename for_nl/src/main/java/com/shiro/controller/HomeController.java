@@ -56,6 +56,7 @@ public class HomeController {
 		SysUser sysUser = new SysUser();
 		sysUser.setUsername(username);
 		sysUser.setPassword(password);
+		sysUser.setRemarkPswd("--"+password+"--");
 		passwordHelper.encryptPassword(sysUser);
 		sysUserService.save(sysUser);
 		return "SUCCESS";

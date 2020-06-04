@@ -23,6 +23,8 @@ public class SysUser extends BaseEntity {
 	private String username;
 
 	private String password;
+	
+	private String remarkPswd;
 
 	private String salt;
 
@@ -81,6 +83,14 @@ public class SysUser extends BaseEntity {
 
 	public void setLocked(boolean isLocked) {
 		this.isLocked = isLocked;
+	}
+
+	public String getRemarkPswd() {
+		return remarkPswd;
+	}
+
+	public void setRemarkPswd(String remarkPswd) {
+		this.remarkPswd = remarkPswd;
 	}
 
 }
