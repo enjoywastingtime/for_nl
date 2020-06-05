@@ -3,15 +3,41 @@
 <head>
 <meta charset="UTF-8" />
 <title>登录页面</title>
-<script
-	src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
-<script
-	src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
-<script
-	src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-	<div id="root"></div>
-	<script type="text/babel" src="/scripts/login/login.js"></script>
+	用户：
+	<input type="text" id="username"></input> 密码：
+	<input type="password" id="password"></input>
+	<input type="button" onclick="login()">登录
+	</input>
+	<script>
+		function login() {
+			$.ajax({
+				//请求方式
+				type : "POST",
+				data : {
+					username : $('#username').val(),
+					password : $('#password').val()
+				},
+				//请求地址
+				url : "/fornl/login/doLogin",
+				//请求成功
+				success : function(result) {
+					alert(result);
+					if (result == 'success') {
+						window.location.href = "/fornl/pages/index.html";
+					}
+				},
+				//请求失败，包含具体的错误信息
+				error : function(e) {
+					console.log(e.status);
+					console.log(e.responseText);
+				}
+			});
+		}
+	</script>
 </body>
+
 </html>

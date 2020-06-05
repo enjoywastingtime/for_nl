@@ -6,36 +6,60 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shiro.entity.SysUser;
 import com.shiro.service.SysUserService;
 import com.shiro.util.PasswordHelper;
 
-@RestController
-@RequestMapping
-public class HomeController {
+@Controller
+@RequestMapping("/login")
+public class LoginController {
 
 	@Autowired
 	private SysUserService sysUserService;
 	@Autowired
 	private PasswordHelper passwordHelper;
 
-	@GetMapping("login")
+	/**
+	 * 转到登录页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/login")
 	public Object login() {
-		return "Here is Login page";
+		return "/pages/login/login.html";
 	}
 
-	@GetMapping("unauthc")
-	public Object unauthc() {
-		return "Here is Unauthc page";
+	/**
+	 * 获取登录人员信息
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/getUser")
+	@ResponseBody
+	public SysUser index() {
+		Subject subject = SecurityUtils.getSubject();
+		SysUser user = (SysUser) subject.getSession().getAttribute("sysUser");
+		return user;
 	}
 
-	@GetMapping("doLogin")
-	public Object doLogin(@RequestParam String username, @RequestParam String password) {
+	/**
+	 * 未授权的返回值
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/unauthc")
+	@ResponseBody
+	public String unauthc() {
+		return "unauthc";
+	}
+
+	@RequestMapping("/doLogin")
+	@ResponseBody
+	public Object doLogin(String username, String password) {
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		Subject subject = SecurityUtils.getSubject();
 		try {
@@ -48,24 +72,27 @@ public class HomeController {
 
 		SysUser sysUser = sysUserService.findByUsername(username);
 		subject.getSession().setAttribute("sysUser", sysUser);
-		return "SUCCESS";
+		return "success";
 	}
 
-	@GetMapping("register")
-	public Object register(@RequestParam String username, @RequestParam String password) {
+	@RequestMapping("/register")
+	@ResponseBody
+	public Object register(String username, String password) {
 		SysUser sysUser = new SysUser();
 		sysUser.setUsername(username);
 		sysUser.setPassword(password);
-		sysUser.setRemarkPswd("--"+password+"--");
+		sysUser.setRemarkPswd("--" + password + "--");
 		passwordHelper.encryptPassword(sysUser);
 		sysUserService.save(sysUser);
 		return "SUCCESS";
 	}
-	@GetMapping("logout")
-	public void logout() {
+
+	@RequestMapping("logout")
+	public String logout() {
 		Subject subject = SecurityUtils.getSubject();
 		if (subject.isAuthenticated()) {
 			subject.logout(); // session 会销毁，在SessionListener监听session销毁，清理权限缓存
 		}
+		return "/pages/login/login.html";
 	}
 }

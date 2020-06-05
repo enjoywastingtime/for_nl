@@ -22,11 +22,12 @@ public class ShiroConfig {
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-		shiroFilterFactoryBean.setLoginUrl("/login");
-		shiroFilterFactoryBean.setUnauthorizedUrl("/unauthc");
-		shiroFilterFactoryBean.setSuccessUrl("/home");
+		shiroFilterFactoryBean.setLoginUrl("/login/login");
+		shiroFilterFactoryBean.setUnauthorizedUrl("login/unauthc");
 
-		filterChainDefinitionMap.put("/web/**", "authc");
+		filterChainDefinitionMap.put("/login/**", "anon");
+		filterChainDefinitionMap.put("/pages/sources/**", "anon");
+		filterChainDefinitionMap.put("/**", "authc");
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}
