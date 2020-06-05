@@ -13,7 +13,7 @@ public class SpringBootApp {
 
 	@RequestMapping("/")
 	public String toIndex() {
-		return "/pages/index.html";
+		return "/pages/index.jsp";
 	}
 
 	public static void main(String[] args) {

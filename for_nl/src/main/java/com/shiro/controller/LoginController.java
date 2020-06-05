@@ -30,7 +30,7 @@ public class LoginController {
 	 */
 	@RequestMapping("/login")
 	public Object login() {
-		return "/pages/login/login.html";
+		return "/pages/login/login.jsp";
 	}
 
 	/**
@@ -93,6 +93,6 @@ public class LoginController {
 		if (subject.isAuthenticated()) {
 			subject.logout(); // session 会销毁，在SessionListener监听session销毁，清理权限缓存
 		}
-		return "/pages/login/login.html";
+		return "/pages/login/login.jsp";
 	}
 }
