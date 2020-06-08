@@ -2,7 +2,10 @@ package com.base.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -74,6 +77,30 @@ public class BaseServiceImpl<T extends BaseEntity, ID extends Serializable> impl
 			ids = "'" + ids.replaceAll(",", "','") + "'";
 		}
 		baseDao.executeUpdateBySQL("delete from " + tableName + " where id in (" + ids + ")");
+	}
+
+	public Page<T> findPageEntityBySql(Pageable pageable, String sql, Object[] objects, Class<T> clazz) {
+		return baseDao.findPageEntityBySql(pageable, sql, objects, clazz);
+	}
+
+	public List<T> findListEntityBySql(String sql, Object[] objects, Class<T> clazz) {
+		return baseDao.findListEntityBySql(sql, objects, clazz);
+	}
+
+	public Page<Map<String, Object>> findPageBySql(Pageable pageable, String sql, Object[] objects) {
+		return baseDao.findPageBySql(pageable, sql, objects);
+	}
+
+	public List<Map<String, Object>> findListBySql(String sql, Object[] objects) {
+		return baseDao.findListBySql(sql, objects);
+	}
+
+	public Map<String, Object> findOneBySql(String sql, Object[] objects) {
+		return baseDao.findOneBySql(sql, objects);
+	}
+
+	public T findOneEntityBySql(String sql, Object[] objects, Class<T> clazz) {
+		return baseDao.findOneEntityBySql(sql, objects, clazz);
 	}
 
 }

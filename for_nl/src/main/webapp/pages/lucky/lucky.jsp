@@ -79,8 +79,8 @@
 		<div class="tt">
 			<div class="hh" id="b8"></div>
 		</div>
-		<div style="width: 100%;text-align: center;margin-top: 20px;">
-			<button type="button" class="btn btn-primary btn-lg" onclick="getLucky()">开始抽奖</button>
+		<div style="width: 100%;text-align: center;">
+			<button type="button" class="btn btn-primary btn-lg" onclick="getLucky()" style="margin-top: 20px;">开始抽奖</button>
 		</div>
 	</div>
 </body>
@@ -113,7 +113,7 @@
 					addClass("b" + ra);
 					before = ra;
 					times++;
-					if (times >= 36) {
+					if (times >= 34) {
 						clearInterval(intv1);
 						var intv2 = setInterval(function() {
 							removeClass("b" + before);
@@ -121,10 +121,10 @@
 							addClass("b" + ra);
 							before = ra;
 							times++;
-							if (times >= 40) {
+							if (times >= 36) {
 								clearInterval(intv2);
 								setTimeout(function() {
-									alert(before);
+									alert("恭喜抽中："+before);
 								}, 800);
 							}
 						}, 1200);

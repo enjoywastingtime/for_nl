@@ -45,9 +45,17 @@
 	height: 100%;
 	border-radius: 0px;
 }
+.btn-info{
+background-color:#ECC7CF ;
+border-color: rgb(230, 183, 191) ;
+}
+.btn-primary{
+background-color:#E3A4AD ;
+border-color: rgb(230, 183, 191) ;
+}
 </style>
 <body style="background-color:#E8F2FE; ">
-	<div style="text-align:center;border: 1px solid rgba(255, 255, 255, 0.8); width: 100%;height:50px;background: linear-gradient(to right, #286090 , #C24C40,#286090);">
+	<div style="text-align:center;border: 1px solid rgba(255, 255, 255, 0.8); width: 100%;height:50px;background: linear-gradient(to right, #148396 , #148396,#148396);">
 		<span style="font-weight: bold;font-size: 30px;color: white;">欢迎</span>
 	</div>
 	<div style="width: 100%;height: 900px;">
@@ -62,8 +70,8 @@
 		<!-- 菜单2 -->
 		<div class="tt">
 			<div class="hh">
-				<button type="button" class="btn btn-info btn-lg menu-button">
-					<span class="glyphicon glyphicon-lock" aria-hidden="true"></span> <br />暂未开放
+				<button type="button" class="btn btn-primary btn-lg menu-button" onclick="window.location.href='pages/luckything/manage.jsp'">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> <br />奖品管理
 				</button>
 			</div>
 		</div>
