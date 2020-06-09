@@ -39,10 +39,20 @@
 	height: 100%;
 	background-color: rgba(231, 234, 237, 0.5);
 	border: 1px solid rgba(255, 255, 255, 0.8);
+	text-align: center;
 }
 
 .sele {
 	background-color: rgba(222, 109, 100, 0.5);
+}
+
+.middle {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 18px;
+	font-family: 华文行楷;
+	color: mediumseagreen;
 }
 </style>
 <body style="background-color:#E8F2FE; ">
@@ -85,9 +95,36 @@
 	</div>
 </body>
 <script type="text/javascript">
+	var glb = [];
+	//获取抽奖池列表
+	$.ajax({
+		method : "GET",
+		url : "luckything/getPoolThings",
+		success : function(r) {
+			//r的长度肯定是小于等于9的
+			var t = r.length;
+			for (i = t; i < 9; i++) {
+				r.push({
+					name : "下次努力"
+				});
+			}
+			r.sort(function() {
+				return Math.random() > 0.5 ? -1 : 1;
+			});
+			glb = r;
+			for (i = 0; i < 9; i++) {
+				$("#b" + i)[0].innerHTML = "<div class='middle'>" + r[i].name + "</div>";
+			}
+		}
+	});
 	//获取0-8随机数
 	function getRandom() {
-		return Math.floor(Math.random() * 9);
+		var rdm = Math.floor(Math.random() * 9);
+		if (rdm != before) {
+			return rdm;//本次获取的随机数不能和上次的相同，否则会造成方块没移动位置的错觉
+		} else {
+			return getRandom();
+		}
 	}
 	function addClass(id) {
 		$("#" + id).addClass("sele");
@@ -113,7 +150,7 @@
 					addClass("b" + ra);
 					before = ra;
 					times++;
-					if (times >= 34) {
+					if (times >= 33) {
 						clearInterval(intv1);
 						var intv2 = setInterval(function() {
 							removeClass("b" + before);
@@ -121,15 +158,25 @@
 							addClass("b" + ra);
 							before = ra;
 							times++;
-							if (times >= 36) {
+							if (times >= 35) {
 								clearInterval(intv2);
-								setTimeout(function() {
-									alert("恭喜抽中："+before);
-								}, 800);
+								var intv3 = setInterval(function() {
+									removeClass("b" + before);
+									ra = getRandom();
+									addClass("b" + ra);
+									before = ra;
+									times++;
+									if (times >= 37) {
+										clearInterval(intv3);
+										setTimeout(function() {
+											alert("恭喜抽中：" + glb[before].name);
+										}, 800);
+									}
+								}, 1200);
 							}
-						}, 1200);
+						}, 900);
 					}
-				}, 500);
+				}, 400);
 			}
 		}, 100);
 	}

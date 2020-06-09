@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.familyuser.entity.FamilyUser;
+import com.shiro.entity.SysUser;
 
 @MappedSuperclass
 public class BaseEntity implements Serializable {
@@ -26,11 +26,11 @@ public class BaseEntity implements Serializable {
 
 	private Date createDate = new Date();
 	@ManyToOne
-	private FamilyUser createBy;
+	private SysUser createBy;
 
 	private Date lastUpdateDate = new Date();
 	@ManyToOne
-	private FamilyUser lastUpdateBy;
+	private SysUser lastUpdateBy;
 
 	public String getId() {
 		return id;
@@ -56,14 +56,6 @@ public class BaseEntity implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public FamilyUser getCreateBy() {
-		return createBy;
-	}
-
-	public void setCreateBy(FamilyUser createBy) {
-		this.createBy = createBy;
-	}
-
 	public Date getLastUpdateDate() {
 		return lastUpdateDate;
 	}
@@ -72,11 +64,19 @@ public class BaseEntity implements Serializable {
 		this.lastUpdateDate = lastUpdateDate;
 	}
 
-	public FamilyUser getLastUpdateBy() {
+	public SysUser getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(SysUser createBy) {
+		this.createBy = createBy;
+	}
+
+	public SysUser getLastUpdateBy() {
 		return lastUpdateBy;
 	}
 
-	public void setLastUpdateBy(FamilyUser lastUpdateBy) {
+	public void setLastUpdateBy(SysUser lastUpdateBy) {
 		this.lastUpdateBy = lastUpdateBy;
 	}
 

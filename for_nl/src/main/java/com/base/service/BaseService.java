@@ -41,5 +41,7 @@ public interface BaseService<T extends BaseEntity, ID extends Serializable> {
 	public Map<String, Object> findOneBySql(String sql, Object[] objects);
 
 	public T findOneEntityBySql(String sql, Object[] objects, Class<T> clazz);
+	
+	public int executeSql(String sql);
 
 }

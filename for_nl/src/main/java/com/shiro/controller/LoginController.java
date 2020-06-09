@@ -43,6 +43,7 @@ public class LoginController {
 	public SysUser index() {
 		Subject subject = SecurityUtils.getSubject();
 		SysUser user = (SysUser) subject.getSession().getAttribute("sysUser");
+		user=sysUserService.find(user.getId());
 		return user;
 	}
 

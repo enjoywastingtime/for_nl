@@ -27,7 +27,7 @@ public class CheckUtil {
 	 * @param str
 	 * @return
 	 */
-	public boolean isEmpty(String str){
+	public static boolean isEmpty(String str){
 		if(str==null||str.equals("")){
 			return true;
 		}else{

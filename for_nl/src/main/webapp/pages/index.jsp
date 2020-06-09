@@ -1,7 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +23,6 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <style>
-
 .tt {
 	width: 33.33%;
 	height: 0;
@@ -45,18 +46,20 @@
 	height: 100%;
 	border-radius: 0px;
 }
-.btn-info{
-background-color:#ECC7CF ;
-border-color: rgb(230, 183, 191) ;
+
+.btn-info {
+	background-color: #ECC7CF;
+	border-color: rgb(230, 183, 191);
 }
-.btn-primary{
-background-color:#E3A4AD ;
-border-color: rgb(230, 183, 191) ;
+
+.btn-primary {
+	background-color: #E3A4AD;
+	border-color: rgb(230, 183, 191);
 }
 </style>
 <body style="background-color:#E8F2FE; ">
-	<div style="text-align:center;border: 1px solid rgba(255, 255, 255, 0.8); width: 100%;height:50px;background: linear-gradient(to right, #148396 , #148396,#148396);">
-		<span style="font-weight: bold;font-size: 30px;color: white;">欢迎</span>
+	<div style="text-align:center; border: 1px solid rgba(255, 255, 255, 0.8); width: 100%;height:50px;background: linear-gradient(to right, #148396 , #148396,#148396);">
+		<span style="font-weight: bold;font-size: 30px;color: white;">欢迎</span><!--  <div id="username"></div><a href="login/logout" style="color:white;float:right;">退出</a> -->
 	</div>
 	<div style="width: 100%;height: 900px;">
 		<!-- 菜单1 -->
@@ -133,4 +136,13 @@ border-color: rgb(230, 183, 191) ;
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$.ajax({
+		method : "GET",
+		url : "login/getUser",
+		success : function(r) {
+			document.getElementById("username").innerHTML=r.name;
+		}
+	});
+</script>
 </html>

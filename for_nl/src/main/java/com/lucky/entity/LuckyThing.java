@@ -25,7 +25,9 @@ public class LuckyThing extends BaseEntity {
 	private Date giveDate;// 赋予时间
 
 	private Date useDate;// 使用时间
-
+	
+	private Integer inPool=0;//是否在抽奖池中
+	
 	@ManyToOne
 	@JoinColumn(name = "owner_id")
 	private SysUser owner;
@@ -76,6 +78,14 @@ public class LuckyThing extends BaseEntity {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public Integer getInPool() {
+		return inPool;
+	}
+
+	public void setInPool(Integer inPool) {
+		this.inPool = inPool;
 	}
 
 }
