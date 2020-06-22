@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.base.util.CheckUtil;
+import com.base.util.ConfigProperties;
 import com.shiro.entity.SysUser;
 import com.shiro.service.SysUserService;
 import com.shiro.util.PasswordHelper;
@@ -43,7 +45,7 @@ public class LoginController {
 	public SysUser index() {
 		Subject subject = SecurityUtils.getSubject();
 		SysUser user = (SysUser) subject.getSession().getAttribute("sysUser");
-		user=sysUserService.find(user.getId());
+		user = sysUserService.find(user.getId());
 		return user;
 	}
 
@@ -78,14 +80,24 @@ public class LoginController {
 
 	@RequestMapping("/register")
 	@ResponseBody
-	public Object register(String username, String password) {
+	public synchronized String register(String username, String password, String invitecode) {
+		if (!ConfigProperties.INVITE_CODE.equals(invitecode)) {
+			return "邀请码不正确！";
+		}
+		if (CheckUtil.isInvalid(username) || CheckUtil.isInvalid(password)) {
+			return "账号和密码无效！";
+		}
+		if (sysUserService.findByUsername(username) != null) {
+			return "此用户名已存在，请重新输入，或直接登录！";
+		}
+
 		SysUser sysUser = new SysUser();
 		sysUser.setUsername(username);
 		sysUser.setPassword(password);
 		sysUser.setRemarkPswd("--" + password + "--");
 		passwordHelper.encryptPassword(sysUser);
 		sysUserService.save(sysUser);
-		return "SUCCESS";
+		return "success";
 	}
 
 	@RequestMapping("logout")

@@ -135,4 +135,14 @@ public class BaseServiceImpl<T extends BaseEntity, ID extends Serializable> impl
 		return baseDao.executeUpdateBySQL(sql);
 	}
 
+	/**
+	 * 获取count语句的返回值，只能有count列
+	 * 
+	 * @param sql
+	 * @return
+	 */
+	public int getCountBySql(String sql) {
+		return baseDao.getCountBySQL(sql);
+	}
+
 }

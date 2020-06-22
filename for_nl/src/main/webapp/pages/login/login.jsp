@@ -55,7 +55,7 @@
 			<div class="form-group">
 				<div style="text-align: center;">
 					<div class="btn-group" role="group" aria-label="...">
-						<button type="button" class="btn btn-info" onclick="alert('暂未开放')">注册</button>
+						<button type="button" class="btn btn-info" onclick="register()">注册</button>
 						<button type="button" class="btn btn-primary" onclick="login()">登录</button>
 					</div>
 				</div>
@@ -86,6 +86,37 @@
 					alert(e.responseText);
 				}
 			});
+		}
+
+		function register() {
+			var name = prompt("请输入邀请码：");
+			if (name != null && name != '' && name != undefined) {
+				$.ajax({
+					//请求方式
+					type : "POST",
+					data : {
+						username : $('#username').val(),
+						password : $('#password').val(),
+						invitecode:name
+					},
+					//请求地址
+					url : "login/register",
+					//请求成功
+					success : function(result) {
+						if (result == 'success') {
+							alert("注册成功，请点击登录！");
+						} else {
+							alert(result);
+						}
+					},
+					//请求失败，包含具体的错误信息
+					error : function(e) {
+						alert(e.responseText);
+					}
+				});
+			} else {
+				alert("请重新输入！");
+			}
 		}
 	</script>
 </body>

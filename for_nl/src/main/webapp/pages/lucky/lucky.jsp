@@ -92,6 +92,12 @@
 		<div style="width: 100%;text-align: center;">
 			<button type="button" class="btn btn-primary btn-lg" onclick="getLucky()" style="margin-top: 20px;">开始抽奖</button>
 		</div>
+		<div style="width: 100%;text-align: center;margin-top: 16px;">
+			<span>我的奖品：</span> <span id="myLucky"></span>
+		</div>
+		<div style="width: 100%;text-align: center;margin-top: 16px;">
+			<button type="button" class="btn btn-danger btn-lg" onclick="confirmLucky()">奖品确认</button>
+		</div>
 	</div>
 </body>
 <script type="text/javascript">
@@ -134,6 +140,7 @@
 	}
 	var before;
 	var times = 0;
+	var myLucky = "";
 	function getLucky() {
 		times = 0;
 		var intv = setInterval(function() {
@@ -158,7 +165,7 @@
 							addClass("b" + ra);
 							before = ra;
 							times++;
-							if (times >= 35) {
+							if (times >= 34) {
 								clearInterval(intv2);
 								var intv3 = setInterval(function() {
 									removeClass("b" + before);
@@ -166,10 +173,19 @@
 									addClass("b" + ra);
 									before = ra;
 									times++;
-									if (times >= 37) {
+									if (times >= 35) {
 										clearInterval(intv3);
 										setTimeout(function() {
-											alert("恭喜抽中：" + glb[before].name);
+											goods = glb[before].name;
+											if (goods == "下次努力") {
+												aleret("很遗憾未抽中奖品，请下次努力！");
+											} else {
+												alert("恭喜抽中：" + goods);
+												myLucky += glb[before].name
+														+ (glb[before].remark != "" && glb[before].remark != undefined ? ("(" + glb[before].remark + ")") : "")
+														+ "；";
+												$("#myLucky").html(myLucky);
+											}
 										}, 800);
 									}
 								}, 1200);
@@ -179,6 +195,40 @@
 				}, 400);
 			}
 		}, 100);
+	}
+	function confirmLucky() {
+		if (myLucky.length <= 0) {
+			alert("还未抽中奖品！");
+			return;
+		}
+		var code = prompt("请输入领奖码：");
+		if (code != null && code != '' && code != undefined) {
+			$.ajax({
+				//请求方式
+				type : "POST",
+				data : {
+					name : myLucky,
+					code : code
+				},
+				//请求地址
+				url : "luckything/confirmLucky",
+				//请求成功
+				success : function(result) {
+					if (result == 'done') {
+						alert("奖品领取成功，请到我的奖品中查看！");
+						window.location.href = "pages/index.jsp";
+					} else {
+						alert(result);
+					}
+				},
+				//请求失败，包含具体的错误信息
+				error : function(e) {
+					alert(e.responseText);
+				}
+			});
+		} else {
+			alert("请重新输入！");
+		}
 	}
 </script>
 </html>

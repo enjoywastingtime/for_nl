@@ -58,8 +58,10 @@
 }
 </style>
 <body style="background-color:#E8F2FE; ">
-	<div style="text-align:center; border: 1px solid rgba(255, 255, 255, 0.8); width: 100%;height:50px;background: linear-gradient(to right, #148396 , #148396,#148396);">
-		<span style="font-weight: bold;font-size: 30px;color: white;">欢迎</span><!--  <div id="username"></div><a href="login/logout" style="color:white;float:right;">退出</a> -->
+	<div
+		style="text-align:center; border: 1px solid rgba(255, 255, 255, 0.8); width: 100%;height:50px;background: linear-gradient(to right, #148396 , #148396,#148396);">
+		<span id="username" style="font-weight: bold;font-size: 30px;color: white;">欢迎</span><a href="login/logout"
+			style="color:orange;    position: absolute;right: 10px;top: 25px;">退出</a>
 	</div>
 	<div style="width: 100%;height: 900px;">
 		<!-- 菜单1 -->
@@ -81,8 +83,8 @@
 		<!-- 菜单3 -->
 		<div class="tt">
 			<div class="hh">
-				<button type="button" class="btn btn-info btn-lg menu-button">
-					<span class="glyphicon glyphicon-lock" aria-hidden="true"></span> <br />暂未开放
+				<button type="button" class="btn btn-primary btn-lg menu-button" onclick="window.location.href='pages/lucky/mylucky.jsp'">
+					<span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> <br />我的奖品
 				</button>
 			</div>
 		</div>
@@ -141,7 +143,7 @@
 		method : "GET",
 		url : "login/getUser",
 		success : function(r) {
-			document.getElementById("username").innerHTML=r.name;
+			document.getElementById("username").innerHTML = '欢迎，' + r.username + '!';
 		}
 	});
 </script>
